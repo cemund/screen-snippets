@@ -1,0 +1,27 @@
+<%- include('./partials/header.ejs') %>
+
+<form action="/new" method="post">
+  <div class="container">
+    <div class="make-review">
+      <select name="id" id="title">
+        <% searchContent.forEach(content => { %>
+        <option value="<%= content["#IMDB_ID"] %>"> <%= content['#TITLE'] %></option>
+            
+        <% }); %>
+      </select>
+
+      <label for="comments">Comments:</label>
+      <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+      <label for="notes">Notes:</label>
+      <textarea name="notes" id="notes" cols="30" rows="10"></textarea>
+
+      <label for="rating">Rating:</label>
+      <input type="number" name="rating" id="rating" />
+      <label for="date">Watched Date:</label>
+      <input type="date" name="date" id="date" />
+
+      <button type="submit">Add</button>
+    </div>
+  </div>
+</form>
+<%- include('./partials/footer.ejs') %>

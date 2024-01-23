@@ -1,0 +1,85 @@
+<%- include('./partials/header.ejs') %>
+
+<h1><%= data.title %></h1>
+<img src="<%= data.image_url %>" alt="<%= data.title %> cover" width="300" />
+
+<form action="/review/<%= data.id %>" method="POST">
+  <label for="date">Watched Date:</label>
+  <input
+    type="date"
+    name="date"
+    id="date"
+    class="field"
+    value="<%= data.date_watch.toISOString().split('T')[0] %>"
+  />
+  <p class="content"><%= data.date_watch.toISOString().split('T')[0] %></p>
+
+  <label for="rating">Rating:</label>
+  <input
+    type="number"
+    name="rating"
+    id="rating"
+    class="field"
+    value="<%= data.rating %>"
+  />
+  <p class="content"><%= data.rating %></p>
+
+  <label for="comments">Comments:</label>
+  <textarea name="comments" id="comments" cols="30" rows="10" class="field">
+<%= data.comments %></textarea
+  >
+  <p class="content"><%= data.comments %></p>
+
+  <label for="notes">Notes:</label>
+  <textarea name="notes" id="notes" cols="30" rows="10" class="field">
+<%= data.notes %></textarea
+  >
+  <p class="content"><%= data.notes %></p>
+  <button class="field" id="cancel">Cancel</button>
+  <button type="submit" class="field" id="save">Save</button>
+</form>
+
+<button name="edit" value="edit" id="edit">Edit</button>
+
+<form action="/edit/<%= data.id %>" method="post">
+  <button type="submit" name="delete" value="delete">Delete</button>
+</form>
+
+<script>
+  const fields = document.querySelectorAll(".field");
+  const contents = document.querySelectorAll(".content");
+
+  fields.forEach((field) => {
+    field.style.display = "none";
+  });
+
+  document.querySelector("#edit").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    fields.forEach((field) => {
+      field.style.display = "block";
+    });
+
+    contents.forEach((content) => {
+      content.style.display = "none";
+    });
+
+    this.style.display = "none";
+  });
+
+  document.querySelector("#cancel").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    fields.forEach((field) => {
+      field.style.display = "none";
+    });
+
+    contents.forEach((content) => {
+      content.style.display = "block";
+    });
+
+    document.querySelector("#edit").style.display = "block";
+  });
+</script>
+
+<%- include('./partials/footer.ejs') %>
